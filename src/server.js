@@ -59,9 +59,13 @@ const __dirname = path.resolve();
 
 // ✅ ✅ ✅ ESSENTIAL CHANGE #1 (ALLOW VERCEL FRONTEND)
 app.use(cors({
-    origin: true,   // ✅ instead of localhost
-    credentials: true,
+  origin: "http://localhost:5173",   // ✅ allow your frontend
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+app.options("*", cors());
+
 
 app.use(express.json());
 app.use(cookieParser());
