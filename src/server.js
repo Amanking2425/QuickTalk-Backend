@@ -78,12 +78,14 @@ if (process.env.NODE_ENV === "production") {
     });
 }
 
+connectDB();
+
 // ✅ ✅ ✅ ESSENTIAL CHANGE #2 (REMOVE app.listen FOR VERCEL)
 if (process.env.NODE_ENV !== "production") {
     const PORT = process.env.PORT || 5001;
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
-        connectDB();
+        
     });
 }
 
