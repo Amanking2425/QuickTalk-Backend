@@ -51,12 +51,20 @@ export async function signup(req,res) {
             expiresIn: "30d"
         })
 
-        res.cookie("jwt",token,{
-            maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-            httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
-            sameSite: "strict", // Helps prevent CSRF attacks
-            secure: process.env.NODE_ENV === "production"
-        })
+        // res.cookie("jwt",token,{
+        //     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+        //     httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
+        //     sameSite: "strict", // Helps prevent CSRF attacks
+        //     secure: process.env.NODE_ENV === "production"
+        // })
+
+    res.cookie("jwt", token, {
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    httpOnly: true,
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: process.env.NODE_ENV === "production"
+    })
+
 
         res.status(201).json({success:true, user:newUser})
         }catch(error){
